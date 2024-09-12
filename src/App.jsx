@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react';
 import { mergeSort } from './sortingAlgorithms/mergeSort.js';
 
 const App = () => {
+    // Styles
     const styles = {
         bar: `w-[12px] rounded mx-[1px] bg-purple-300 text-sm`,
         button: 'border-gray-500 bg-gray-200 shadow-md shadow-gray-400 rounded text-lg font-light w-full h-[70px] hover:scale-110 duration-500 cursor-pointer',
     };
 
+    // State
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
 
-    // GENERATE ARRAY WITH RANDOM INTEGERS VALUED BETWEEN 5 - 1000
+    // Generate array with 80 random integers valued between 5 - 500
     const generateArray = () => {
+
         let randomArray = [];
         for (let value = 0; value < 80; value++) {
             let randomNumber = Math.floor(Math.random() * (500 - 5 + 1)) + 5;
@@ -23,24 +26,26 @@ const App = () => {
         setHighlighted([]);
     };
 
-    // POPULATE ARRAY ON PAGE MOUNT
+    // Populate array on app mount
     useEffect(() => {
         generateArray();
     }, []);
 
-    // HANDLE MERGE SORT
+    // Handle merge
     const handleMergeSort = () => {
         const sortedArray = mergeSort(array);
         setArray([...sortedArray]);
     };
 
-    // HANDLE BUBBLE SORT
+    // Handle bubble
     const handleBubbleSort = async () => {
+
         const length = array.length;
         let newArray = [...array];
 
         for (let i = 0; i < length - 1; i++) {
             for (let j = 0; j < length - i - 1; j++) {
+
                 setHighlighted([j, j + 1]);
 
                 await new Promise((resolve) => setTimeout(resolve, 100));

@@ -3,7 +3,11 @@
 - A simple single-page app created with React + Vite to visually demonstrate different types of sorting algorithms
 - Merge Sort correctly functions but at this point is not a visually animated process
 - Bubble Sort functions and the process is demonstrated with visual animations
-- Plans to integrate more types of sorting algorithms with animations
+-
+## Plans
+- Integrate more types of sorting algorithms with animations
+- Sorting speed toggle
+- Stop/restart when sorting is in progress
 
 ## Libraries & Frameworks
 - TailwindCSS
