@@ -67,7 +67,7 @@ const App = () => {
     return (
         <>
             <main className='w-full h-screen flex justify-center items-center'>
-                <section className='flex justify-between w-full px-6'>
+                <section className='h-screen flex flex-col justify-evenly w-full px-6'>
                     <ul className='flex justify-center items-end w-full'>
                         {array ? (
                             array.map((value, idx) => (
@@ -92,7 +92,7 @@ const App = () => {
                             <></>
                         )}
                     </ul>
-                    <section className='flex flex-col w-[150px] justify-center items-center gap-4'>
+                    <section className='flex w-fit justify-center self-center items-center gap-4'>
                         <button
                             className={styles.button}
                             onClick={handleMergeSort}
@@ -109,9 +109,9 @@ const App = () => {
                             className={styles.button}
                             onClick={generateArray}
                         >
-                            Generate New Array
+                            New Array
                         </button>
-                        <label htmlFor='speed-toggle'>Speed: {sortSpeed}ms</label>
+                        <label htmlFor='speed-toggle'>Faster</label>
                         <input
                             id='speed-toggle'
                             name='speed-toggle'
@@ -119,8 +119,11 @@ const App = () => {
                             min='2'
                             max='500'
                             value={sortSpeed}
-                            onChange={(e) => setSortSpeed(Number(e.target.value))}
+                            onChange={(e) =>
+                                setSortSpeed(Number(e.target.value))
+                            }
                         />
+                        <label htmlFor='speed-toggle'>Slower</label>
                     </section>
                 </section>
             </main>
