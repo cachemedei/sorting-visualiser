@@ -1,34 +1,29 @@
 const Background = () => {
-    const styles = {
-        purpleBubble:
-            'bg-purple-300 w-[300px] h-[300px] mix-blend-multiply filter blur-xl opacity-60 rounded-full animate-blob',
-        yellowBubble:
-            'bg-yellow-300 w-[150px] h-[150px] mix-blend-multiply filter blur-xl opacity-60 rounded-full animate-blob animation-delay-4000',
-        pinkBubble:
-            'bg-pink-300 w-[280px] h-[280px] mix-blend-multiply filter blur-xl opacity-60 rounded-full animate-blob animation-delay-2000',
-    };
+    let stars = [];
+
+    for (let value = 0; value < 500; value++) {
+        let randomNumber = Math.floor(Math.random() * (1000 - 5 + 1)) + 5;
+        stars.push(randomNumber);
+    }
+
     return (
-        <main className='w-full h-full relative grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.yellowBubble}></div>
-            <div className={styles.purpleBubble}></div>
-            <div className={styles.pinkBubble}></div>
-            <div className={styles.purpleBubble}></div>
-        </main>
+        <div className='relative w-full h-screen grid grid-cols-10 sm:grid-cols-12 md:grid-cols-15 lg:grid-cols-large xl:grid-cols-xlarge gap-10 p-2'>
+            {stars.map((star, i) => {
+                const delay = i % 2 === 0 ? '1s' : '4s';
+                const marginStagger = i % 2 === 0 ? '20' : '0';
+                return (
+                    <p
+                        key={i}
+                        className='w-[2px] h-[2px] bg-gray-50 rounded-full animate-pulse'
+                        style={{
+                            marginTop: `${marginStagger}px`,
+                            marginBottom: `${marginStagger}px`,
+                            animationDelay: delay,
+                        }}
+                    ></p>
+                );
+            })}
+        </div>
     );
 };
 export default Background;

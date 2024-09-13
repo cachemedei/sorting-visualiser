@@ -6,14 +6,15 @@ const App = () => {
     // Styles
     const styles = {
         bar: `w-[12px] rounded mx-[1px] bg-indigo-300 text-sm`,
-        button: 'border-gray-500 bg-gray-200 shadow-md shadow-gray-400 rounded text-lg font-light w-full h-[70px] hover:scale-110 duration-500 cursor-pointer',
+        button: 'border-gray-500 bg-gray-200 rounded text-lg font-light hover:scale-110 duration-500 cursor-pointer py-2 px-3',
+        speedLabel: 'text-gray-100 font-bold text-xl',
     };
 
     // State
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
-    const [sortSpeed, setSortSpeed] = useState(80); // Default speed is 80ms
+    const [sortSpeed, setSortSpeed] = useState(125); // Default speed is 80ms
 
     // Generate array with 80 random integers valued between 5 - 500
     const generateArray = () => {
@@ -47,9 +48,7 @@ const App = () => {
             for (let j = 0; j < length - i - 1; j++) {
                 setHighlighted([j, j + 1]);
 
-                await new Promise((resolve) =>
-                    setTimeout(resolve, sortSpeed)
-                );
+                await new Promise((resolve) => setTimeout(resolve, sortSpeed));
                 if (newArray[j] > newArray[j + 1]) {
                     // Swap the elements
                     [newArray[j], newArray[j + 1]] = [
@@ -67,10 +66,10 @@ const App = () => {
 
     return (
         <>
-            <main className='w-full p-2 h-screen flex justify-center items-center bg-gray-200'>
+            <main className='w-full h-screen flex justify-center items-center bg-gray-800 relative'>
                 {/* Background */}
                 <Background />
-                <section className='h-screen flex flex-col justify-evenly w-full px-6 absolute'>
+                <section className='h-full flex flex-col justify-evenly w-full px-6 absolute'>
                     <ul className='flex justify-center items-end w-full'>
                         {array ? (
                             array.map((value, idx) => (
@@ -84,8 +83,8 @@ const App = () => {
                                             : highlighted[0] === idx
                                             ? '#83bff4' // first compared
                                             : highlighted[1] === idx
-                                            ? '#f4c68e' // second compared
-                                            : 'lightslategray', // unsorted
+                                            ? '#e02121' // second compared
+                                            : 'lightsalmon', // unsorted
                                     }}
                                     className={styles.bar}
                                     key={idx}
@@ -95,38 +94,53 @@ const App = () => {
                             <></>
                         )}
                     </ul>
-                    <section className='flex  justify-center self-center items-center gap-4'>
-                        <button
-                            className={styles.button}
-                            onClick={handleMergeSort}
-                        >
-                            Merge Sort
-                        </button>
-                        <button
-                            className={styles.button}
-                            onClick={handleBubbleSort}
-                        >
-                            Bubble Sort
-                        </button>
-                        <button
-                            className={styles.button}
-                            onClick={generateArray}
-                        >
-                            New Array
-                        </button>
-                        <label htmlFor='speed-toggle'>Faster</label>
-                        <input
-                            id='speed-toggle'
-                            name='speed-toggle'
-                            type='range'
-                            min='2'
-                            max='500'
-                            value={sortSpeed}
-                            onChange={(e) =>
-                                setSortSpeed(Number(e.target.value))
-                            }
-                        />
-                        <label htmlFor='speed-toggle'>Slower</label>
+                    <section className='flex justify-evenly w-full h-[200px] self-center items-center gap-4'>
+                        <div className='flex justify-evenly w-[600px]'>
+                            <button
+                                className={styles.button}
+                                onClick={handleMergeSort}
+                            >
+                                Merge Sort
+                            </button>
+                            <button
+                                className={styles.button}
+                                onClick={handleBubbleSort}
+                            >
+                                Bubble Sort
+                            </button>
+                            <button
+                                className={styles.button}
+                                onClick={generateArray}
+                            >
+                                New Array
+                            </button>
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor='speed-toggle'
+                                className={styles.speedLabel}
+                            >
+                                FASTER
+                            </label>
+                            <input
+                                id='speed-toggle'
+                                name='speed-toggle'
+                                type='range'
+                                min='2'
+                                max='250'
+                                value={sortSpeed}
+                                onChange={(e) =>
+                                    setSortSpeed(Number(e.target.value))
+                                }
+                            />
+                            <label
+                                htmlFor='speed-toggle'
+                                className={styles.speedLabel}
+                            >
+                                SLOWER
+                            </label>
+                        </div>
                     </section>
                 </section>
             </main>
