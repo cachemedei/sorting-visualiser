@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+}
+
 html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: rgb(128, 138, 242);
-    color: #6d4982;
+}
+
+ul {
+    color: light;
 }

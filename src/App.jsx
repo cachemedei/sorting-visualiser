@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { mergeSort } from './sortingAlgorithms/mergeSort.js';
+import Background from './components/Background.jsx';
 
 const App = () => {
     // Styles
     const styles = {
-        bar: `w-[12px] rounded mx-[1px] bg-purple-300 text-sm`,
+        bar: `w-[12px] rounded mx-[1px] bg-indigo-300 text-sm`,
         button: 'border-gray-500 bg-gray-200 shadow-md shadow-gray-400 rounded text-lg font-light w-full h-[70px] hover:scale-110 duration-500 cursor-pointer',
     };
 
@@ -66,8 +67,10 @@ const App = () => {
 
     return (
         <>
-            <main className='w-full h-screen flex justify-center items-center'>
-                <section className='h-screen flex flex-col justify-evenly w-full px-6'>
+            <main className='w-full p-2 h-screen flex justify-center items-center bg-gray-200'>
+                {/* Background */}
+                <Background />
+                <section className='h-screen flex flex-col justify-evenly w-full px-6 absolute'>
                     <ul className='flex justify-center items-end w-full'>
                         {array ? (
                             array.map((value, idx) => (
@@ -77,12 +80,12 @@ const App = () => {
                                         backgroundColor: sortedIndex.includes(
                                             idx
                                         )
-                                            ? '#d7a6f5' // sorted elements
+                                            ? 'orange' // sorted elements
                                             : highlighted[0] === idx
                                             ? '#83bff4' // first compared
                                             : highlighted[1] === idx
                                             ? '#f4c68e' // second compared
-                                            : '#6d4982', // unsorted
+                                            : 'lightslategray', // unsorted
                                     }}
                                     className={styles.bar}
                                     key={idx}
@@ -92,7 +95,7 @@ const App = () => {
                             <></>
                         )}
                     </ul>
-                    <section className='flex w-fit justify-center self-center items-center gap-4'>
+                    <section className='flex  justify-center self-center items-center gap-4'>
                         <button
                             className={styles.button}
                             onClick={handleMergeSort}
