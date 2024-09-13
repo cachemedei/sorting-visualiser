@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { mergeSort } from './sortingAlgorithms/mergeSort.js';
 
 const App = () => {
@@ -12,10 +12,10 @@ const App = () => {
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
+    const [sortSpeed, setSortSpeed] = useState(80); // Default speed is 80ms
 
     // Generate array with 80 random integers valued between 5 - 500
     const generateArray = () => {
-
         let randomArray = [];
         for (let value = 0; value < 80; value++) {
             let randomNumber = Math.floor(Math.random() * (500 - 5 + 1)) + 5;
@@ -39,16 +39,16 @@ const App = () => {
 
     // Handle bubble
     const handleBubbleSort = async () => {
-
         const length = array.length;
         let newArray = [...array];
 
         for (let i = 0; i < length - 1; i++) {
             for (let j = 0; j < length - i - 1; j++) {
-
                 setHighlighted([j, j + 1]);
 
-                await new Promise((resolve) => setTimeout(resolve, 100));
+                await new Promise((resolve) =>
+                    setTimeout(resolve, sortSpeed)
+                );
                 if (newArray[j] > newArray[j + 1]) {
                     // Swap the elements
                     [newArray[j], newArray[j + 1]] = [
@@ -111,6 +111,16 @@ const App = () => {
                         >
                             Generate New Array
                         </button>
+                        <label htmlFor='speed-toggle'>Speed: {sortSpeed}ms</label>
+                        <input
+                            id='speed-toggle'
+                            name='speed-toggle'
+                            type='range'
+                            min='2'
+                            max='500'
+                            value={sortSpeed}
+                            onChange={(e) => setSortSpeed(Number(e.target.value))}
+                        />
                     </section>
                 </section>
             </main>
