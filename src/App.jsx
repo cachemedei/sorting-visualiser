@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { mergeSort } from './sortingAlgorithms/mergeSort.js';
 import Background from './components/Background.jsx';
+import QuickSort from './components/QuickSort.jsx';
+import MergeSort from './components/MergeSort.jsx';
+import BubbleSort from './components/BubbleSort.jsx';
 
 const App = () => {
     // Styles
@@ -14,7 +17,19 @@ const App = () => {
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
-    const [sortSpeed, setSortSpeed] = useState(125); // Default speed is 80ms
+    const sortSpeed = 80; // Default speed is 80ms
+
+    // Callback functions to update array state from children
+    const updateArrayState = (newArray) => {
+        setArray(newArray);
+    };
+
+    const updateHighlightedState = (newHighlights) => {
+        setHighlighted(newHighlights);
+    };
+    const updateSortedIndexState = (newSortedIndex) => {
+        setSortedIndex(newSortedIndex);
+    };
 
     // Generate array with 80 random integers valued between 5 - 500
     const generateArray = () => {
@@ -33,35 +48,31 @@ const App = () => {
         generateArray();
     }, []);
 
-    // Handle merge
-    const handleMergeSort = () => {
-        const sortedArray = mergeSort(array);
-        setArray([...sortedArray]);
-    };
-
-    // Handle bubble
+    // Handle Bubble Sort
     const handleBubbleSort = async () => {
         const length = array.length;
         let newArray = [...array];
 
-        for (let i = 0; i < length - 1; i++) {
-            for (let j = 0; j < length - i - 1; j++) {
-                setHighlighted([j, j + 1]);
+            for (let i = 0; i < length - 1; i++) {
+                for (let j = 0; j < length - i - 1; j++) {
+                    setHighlighted([j, j + 1]);
 
-                await new Promise((resolve) => setTimeout(resolve, sortSpeed));
-                if (newArray[j] > newArray[j + 1]) {
-                    // Swap the elements
-                    [newArray[j], newArray[j + 1]] = [
-                        newArray[j + 1],
-                        newArray[j],
-                    ];
-                    setArray([...newArray]); // Trigger state update for re-render
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, sortSpeed)
+                    );
+                    if (newArray[j] > newArray[j + 1]) {
+                        // Swap the elements
+                        [newArray[j], newArray[j + 1]] = [
+                            newArray[j + 1],
+                            newArray[j],
+                        ];
+                        setArray([...newArray]); // Trigger state update for re-render
+                    }
+                    setHighlighted([]);
                 }
-                setHighlighted([]);
+                setSortedIndex((prev) => [...prev, length - i - 1]);
             }
-            setSortedIndex((prev) => [...prev, length - i - 1]);
-        }
-        setSortedIndex(newArray.map((_, idx) => idx));
+            setSortedIndex(newArray.map((_, idx) => idx));
     };
 
     return (
@@ -96,12 +107,13 @@ const App = () => {
                     </ul>
                     <section className='flex justify-evenly w-full h-[200px] self-center items-center gap-4'>
                         <div className='flex justify-evenly w-[600px]'>
-                            <button
-                                className={styles.button}
-                                onClick={handleMergeSort}
-                            >
-                                Merge Sort
-                            </button>
+                            <MergeSort
+                                updateArrayState={updateArrayState}
+                                updateHighlightedState={updateHighlightedState}
+                                updateSortedIndexState={updateSortedIndexState}
+                                sortSpeed={sortSpeed}
+                                unsortedArray={array}
+                            />
                             <button
                                 className={styles.button}
                                 onClick={handleBubbleSort}
@@ -114,32 +126,6 @@ const App = () => {
                             >
                                 New Array
                             </button>
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor='speed-toggle'
-                                className={styles.speedLabel}
-                            >
-                                FASTER
-                            </label>
-                            <input
-                                id='speed-toggle'
-                                name='speed-toggle'
-                                type='range'
-                                min='2'
-                                max='250'
-                                value={sortSpeed}
-                                onChange={(e) =>
-                                    setSortSpeed(Number(e.target.value))
-                                }
-                            />
-                            <label
-                                htmlFor='speed-toggle'
-                                className={styles.speedLabel}
-                            >
-                                SLOWER
-                            </label>
                         </div>
                     </section>
                 </section>
