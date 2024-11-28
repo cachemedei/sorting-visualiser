@@ -14,7 +14,7 @@ const App = () => {
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
-    const sortSpeed = 80; // Default speed is 80ms
+    const sortSpeed = 80;
 
     // callback functions
     const updateArrayState = (newArray) => {
