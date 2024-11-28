@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Background from './components/Background.jsx';
 import MergeSort from './components/MergeSort.jsx';
+import QuickSort from './components/QuickSort.jsx';
 
 const App = () => {
     // styles
@@ -103,19 +104,26 @@ const App = () => {
                     </ul>
                     <section className='flex justify-evenly w-full h-[200px] self-center items-center gap-4'>
                         <div className='flex justify-evenly w-[600px]'>
+                            {/* merge sort */}
                             <MergeSort
                                 updateArrayState={updateArrayState}
-                                updateHighlightedState={updateHighlightedState}
-                                updateSortedIndexState={updateSortedIndexState}
-                                sortSpeed={sortSpeed}
                                 unsortedArray={array}
                             />
+
+                            {/* bubble sort */}
                             <button
                                 className={styles.button}
                                 onClick={handleBubbleSort}
                             >
                                 Bubble Sort
                             </button>
+
+                            {/* quick sort */}
+                            <QuickSort
+                                updateArrayState={updateArrayState}
+                                unsortedArray={array}
+                            />
+
                             <button
                                 className={styles.button}
                                 onClick={generateArray}

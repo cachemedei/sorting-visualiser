@@ -5,7 +5,7 @@
 - Allows users to select different sorting algorithms, change the speed at which the sorting happens
 
 ## Plans
-- Animate merge sort
+- Animate merge sort + quick sort
 - Integrate more types of sorting algorithms with animations
 - Sorting speed toggle
 - Stop/restart when sorting is in progress
