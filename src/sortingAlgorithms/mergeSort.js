@@ -1,39 +1,40 @@
-// MERGE FUNCTION: MERGES 2 SORTED ARRAYS INTO 1 SORTED ARRAY
+// merge(): merges 2 sorted arrays into 1 sorted array
 function merge(left, right) {
     let resultArray = [],
         leftIndex = 0,
         rightIndex = 0;
 
-    // LOOP THROUGH BOTH ARRAYS, COMPARE ELEMENTS, ADD SMALLER ONE
-    // TO resultArray
+    // loop through both arrays, compare elements, add smallest to resultArray
     while (leftIndex < left.length && rightIndex < right.length) {
         if (left[leftIndex] < right[rightIndex]) {
             resultArray.push(left[leftIndex]);
-            leftIndex++; // MOVE TO NEXT ELEMENT IN LEFT ARRAY
+            leftIndex++; // move to next element in left array
         } else {
             resultArray.push(right[rightIndex]);
-            rightIndex++; // MOVE TO NEXT ELEMENT IN RIGHT ARRAY
+            rightIndex++; // move to next element in right array
         }
     }
 
-    // CONCATENATE REMAINING ELEMENTS FROM EITHER LEFT OR RIGHT (IF ANY)
+    // concatenate remaining elements from either left or right
     return resultArray
         .concat(left.slice(leftIndex))
         .concat(right.slice(rightIndex));
 }
 
-// MERGE SORT FUNCTION
+// mergeSort():
+// completely divdes unsorted arrays and then recursively calls 
+// merge function to return a single, sorted array 
 export function mergeSort(array) {
-    // BASE CASE: IF ARRAY HAS 1 ELEMENT, RETURN IT
+    // base case: if array has 1 element, return it
     if (array.length === 1) {
         return array;
     }
 
-    // DIVIDE ARRAY INTO 2 HALVES
+    // divide array into 2 halves
     const middle = Math.floor(array.length / 2); // MIDDLE IDX
     const left = array.slice(0, middle); // SPLITS ARRAY FROM START TO MIDDLE
     const right = array.slice(middle); // SPLITS ARRAY FROM MIDDLE TO END
 
-    // RECURSIVELY CALL mergeSort ON THE LEFT & RIGHT HALVES
+    // recursively call mergeSort on left and right arrays
     return merge(mergeSort(left), mergeSort(right));
 };

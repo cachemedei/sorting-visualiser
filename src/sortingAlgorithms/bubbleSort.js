@@ -5,14 +5,14 @@ function bubbleSort(unsortedArray) {
         let swapped = false;
         for (let p = 0; p < length - i - 1; p++) {
             if (array[p] > array[p + 1]) {
-                // IF P > P + 1, SWAP ELEMENTS AROUND
+                // if p > p + 1, swap elements
                 let tempValue = array[p];
                 array[p] = array[p + 1];
                 array[p + 1] = tempValue;
                 swapped = true;
             }
         }
-        // IF NO ELEMENTS SWAPPED, FINISH THE LOOP
+        // if no elements swapped, exit
         if (!swapped) {
             break;
         }
@@ -30,9 +30,9 @@ const animatedBubbleSort = async () => {
 
             await new Promise((resolve) => setTimeout(resolve, 100));
             if (newArray[j] > newArray[j + 1]) {
-                // Swap the elements
+                // swap elements
                 [newArray[j], newArray[j + 1]] = [newArray[j + 1], newArray[j]];
-                setArray([...newArray]); // Trigger state update for re-render
+                setArray([...newArray]); // trigger state update for re-render
             }
             setHighlighted([]);
         }

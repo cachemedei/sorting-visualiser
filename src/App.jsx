@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { mergeSort } from './sortingAlgorithms/mergeSort.js';
+import { useEffect, useState } from 'react';
 import Background from './components/Background.jsx';
-import QuickSort from './components/QuickSort.jsx';
 import MergeSort from './components/MergeSort.jsx';
-import BubbleSort from './components/BubbleSort.jsx';
 
 const App = () => {
-    // Styles
+    // styles
     const styles = {
         bar: `w-[12px] rounded mx-[1px] bg-indigo-300 text-sm`,
         button: 'border-gray-500 bg-gray-200 rounded text-lg font-light hover:scale-110 duration-500 cursor-pointer py-2 px-3',
         speedLabel: 'text-gray-100 font-bold text-xl',
     };
 
-    // State
+    // state
     const [array, setArray] = useState([]);
     const [sortedIndex, setSortedIndex] = useState([]);
     const [highlighted, setHighlighted] = useState([]);
     const sortSpeed = 80; // Default speed is 80ms
 
-    // Callback functions to update array state from children
+    // callback functions
     const updateArrayState = (newArray) => {
         setArray(newArray);
     };
@@ -31,7 +28,7 @@ const App = () => {
         setSortedIndex(newSortedIndex);
     };
 
-    // Generate array with 80 random integers valued between 5 - 500
+    // generate array with 80 random integers valued between 5 - 500
     const generateArray = () => {
         let randomArray = [];
         for (let value = 0; value < 80; value++) {
@@ -43,12 +40,12 @@ const App = () => {
         setHighlighted([]);
     };
 
-    // Populate array on app mount
+    // populate array on app mount
     useEffect(() => {
         generateArray();
     }, []);
 
-    // Handle Bubble Sort
+    // handle Bubble Sort
     const handleBubbleSort = async () => {
         const length = array.length;
         let newArray = [...array];
@@ -61,12 +58,11 @@ const App = () => {
                         setTimeout(resolve, sortSpeed)
                     );
                     if (newArray[j] > newArray[j + 1]) {
-                        // Swap the elements
                         [newArray[j], newArray[j + 1]] = [
                             newArray[j + 1],
                             newArray[j],
                         ];
-                        setArray([...newArray]); // Trigger state update for re-render
+                        setArray([...newArray]);
                     }
                     setHighlighted([]);
                 }

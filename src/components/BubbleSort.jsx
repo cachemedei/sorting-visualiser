@@ -18,12 +18,12 @@ const BubbleSort = ({
 
                 await new Promise((resolve) => setTimeout(resolve, sortSpeed));
                 if (newArray[j] > newArray[j + 1]) {
-                    // Swap the elements
+                    // swap elements
                     [newArray[j], newArray[j + 1]] = [
                         newArray[j + 1],
                         newArray[j],
                     ];
-                    updateArrayState([...newArray]); // Trigger state update for re-render
+                    updateArrayState([...newArray]); // trigger state update for re-render
                 }
                 updateHighlightedState([]);
             }

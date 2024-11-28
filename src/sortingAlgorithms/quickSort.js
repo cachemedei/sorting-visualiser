@@ -26,8 +26,6 @@ const sortedArray = quickSort(array);
 console.log(array);
 console.log(sortedArray);
 
-////////////////////////////////
-
 const quickSortFunction = (arr) => {
     if (arr.length < 2) {
         return arr;
